@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D19C9401E8962DD009FF236 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D19C93F1E8962DD009FF236 /* Button.swift */; };
+		2D19C9431E898B99009FF236 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D19C9421E898B99009FF236 /* CustomButton.swift */; };
 		2D20195A1E87257C006FE32F /* Jackpot.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D2019581E87257C006FE32F /* Jackpot.sks */; };
 		2D20195B1E87257C006FE32F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D2019591E87257C006FE32F /* Assets.xcassets */; };
+		2D9F86371E8AC858000EDE36 /* BetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F86361E8AC858000EDE36 /* BetButton.swift */; };
 		2DB3CD611E86F96600E548EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3CD601E86F96600E548EC /* AppDelegate.swift */; };
 		2DB3CD631E86F96600E548EC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2DB3CD621E86F96600E548EC /* GameScene.sks */; };
 		2DB3CD651E86F96600E548EC /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2DB3CD641E86F96600E548EC /* Actions.sks */; };
@@ -22,9 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D19C93F1E8962DD009FF236 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		2D19C9421E898B99009FF236 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		2D2019581E87257C006FE32F /* Jackpot.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Jackpot.sks; path = ../Jackpot.sks; sourceTree = "<group>"; };
 		2D2019591E87257C006FE32F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
+		2D9F86361E8AC858000EDE36 /* BetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetButton.swift; sourceTree = "<group>"; };
 		2DB3CD5D1E86F96600E548EC /* MAPD124_Assignment3_SlotMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MAPD124_Assignment3_SlotMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB3CD601E86F96600E548EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DB3CD621E86F96600E548EC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -70,12 +72,12 @@
 			children = (
 				2DB3CD601E86F96600E548EC /* AppDelegate.swift */,
 				2DB3CD621E86F96600E548EC /* GameScene.sks */,
-				2DB3CD7A1E87052000E548EC /* Objects */,
 				2D2019581E87257C006FE32F /* Jackpot.sks */,
 				2DB3CD641E86F96600E548EC /* Actions.sks */,
 				2DB3CD661E86F96600E548EC /* GameScene.swift */,
 				2DB3CD681E86F96600E548EC /* GameViewController.swift */,
 				2DB3CD6A1E86F96600E548EC /* Main.storyboard */,
+				2DB3CD7A1E87052000E548EC /* Objects */,
 				2DB3CD7B1E87054200E548EC /* Support */,
 			);
 			path = MAPD124_Assignment3_SlotMachine;
@@ -85,7 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				2DB3CD781E86FA0100E548EC /* Reel.swift */,
-				2D19C93F1E8962DD009FF236 /* Button.swift */,
+				2D19C9421E898B99009FF236 /* CustomButton.swift */,
+				2D9F86361E8AC858000EDE36 /* BetButton.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -178,11 +181,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D19C9401E8962DD009FF236 /* Button.swift in Sources */,
 				2DB3CD671E86F96600E548EC /* GameScene.swift in Sources */,
+				2D19C9431E898B99009FF236 /* CustomButton.swift in Sources */,
 				2DB3CD791E86FA0100E548EC /* Reel.swift in Sources */,
 				2DB3CD691E86F96600E548EC /* GameViewController.swift in Sources */,
 				2DB3CD611E86F96600E548EC /* AppDelegate.swift in Sources */,
+				2D9F86371E8AC858000EDE36 /* BetButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

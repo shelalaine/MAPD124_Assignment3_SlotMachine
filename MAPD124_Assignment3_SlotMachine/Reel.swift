@@ -12,14 +12,14 @@ class Reel: SKNode {
 
     var reel:SKSpriteNode?
     func configure(imageName: String, at position: CGPoint) {
-        let anchor = CGPoint(x: 0.0, y: 0.0)
+        let anchor = CGPoint(x: 0.5, y: 0.0)
         
         // Save the position
-        self.position = position
+//        self.position = position
         
         // Setup the mask
         let cropNode = SKCropNode()
-        cropNode.position = CGPoint(x: 0.0, y: 0.0)
+        cropNode.position = position
         cropNode.zPosition = 1
         let texture = SKTexture(imageNamed: "ReelMask")
         let sprite = SKSpriteNode(texture: texture, size: CGSize(width: 100.0, height: 390.0))
@@ -28,13 +28,17 @@ class Reel: SKNode {
         
         // Add the image of this reel
         reel = SKSpriteNode(imageNamed: imageName)
-        reel?.position = CGPoint(x: 0, y: 0)
+//        reel?.position = CGPoint(x: 0.0, y: 0.0)
         reel?.anchorPoint = anchor
         reel?.name = "reel"
         cropNode.addChild(reel!)
         
         addChild(cropNode)
         print("x: \(position.x) y: \(position.y)")
+    }
+    
+    func spinReel() {
+        
     }
     
 }

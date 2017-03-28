@@ -1,19 +1,27 @@
 //
-//  Button.swift
+//  CustomButton.swift
 //  MAPD124_Assignment3_SlotMachine
 //
 //  Created by Shelalaine Chan on 2017-03-27.
 //  Copyright © 2017 ShelalaineChan. All rights reserved.
 //
 
+import UIKit
+
 import SpriteKit
 import CoreGraphics
 
-class Button: SKNode {
+protocol CustomButtonDelegate: class {
+    func spinReels()
+}
+
+class CustomButton: SKNode {
     
     var imageSprite: SKSpriteNode?
     var xPosReleased:CGFloat?
     var xPosPressed:CGFloat?
+    var isSpinning:Bool?
+    weak var delegate:CustomButtonDelegate?
     
     override init() {
         super.init()
@@ -33,25 +41,42 @@ class Button: SKNode {
             let sprite = SKSpriteNode(imageNamed: "ButtonMask")
             sprite.position = position
             cropNode.maskNode = sprite
-
+            
             // Setup the released and pressed x positions
-            xPosPressed = (sprite.size.width / 2) + 1
-            xPosReleased = (0 - (sprite.size.width / 2))
+            xPosPressed = position.x + (sprite.size.width / 2) + 1
+            xPosReleased = (position.x - (sprite.size.width / 2))
             print("\(xPosReleased!) \(position.x) \(xPosPressed!)")
             
             imageSprite = SKSpriteNode(imageNamed: "Button")
             imageSprite?.position = CGPoint(x: xPosReleased!, y: position.y)
+            
             cropNode.addChild(imageSprite!)
             self.addChild(cropNode)
             
+            self.isSpinning = false
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.imageSprite?.position.x = xPosPressed!
+        buttonPressed()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        buttonReleased()
+        if delegate != nil {
+            if self.isSpinning == false {
+                delegate?.spinReels()
+            }
+        }
+    }
+    
+    public func buttonPressed() {
+        self.imageSprite?.position.x = xPosPressed!
+    }
+    
+    public func buttonReleased() {
         self.imageSprite?.position.x = xPosReleased!
     }
+    
 }
+
