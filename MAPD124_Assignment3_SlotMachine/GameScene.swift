@@ -18,12 +18,12 @@ class GameScene: SKScene, CustomButtonDelegate {
     var playButton:CustomButton?
     
     override func didMove(to view: SKView) {
-        
+    
         // Save the size
         let screenSize = UIScreen.main.bounds
         width = screenSize.width
         height = screenSize.height
-        
+    
         // Add background
         let background = SKSpriteNode(imageNamed: "Background")
         background.zPosition = -2
@@ -127,6 +127,7 @@ class GameScene: SKScene, CustomButtonDelegate {
     
     // Spin reel handler
     public func spinReels() {
+        
         let delta = CGVector(dx: 0, dy: -650)
         let spin = SKAction.move(by: delta, duration: 0.20)
         let reset = SKAction.moveTo(y: 0, duration: 0)
@@ -145,12 +146,13 @@ class GameScene: SKScene, CustomButtonDelegate {
         
         self.playButton?.isSpinning = true
         
-        self.reels[0].reel?.run(SKAction.repeat(sequence, count: 20))
-        self.reels[1].reel?.run(SKAction.repeat(sequence, count: 30))
-        self.reels[2].reel?.run(SKAction.repeat(sequence, count: 40), completion: {
+        self.reels[0].reel?.run(SKAction.repeat(sequence, count: 5))
+        self.reels[1].reel?.run(SKAction.repeat(sequence, count: 10))
+        self.reels[2].reel?.run(SKAction.repeat(sequence, count: 15), completion: {
             self.playButton?.isSpinning = false
         })
         
         print("Spinning status: \((self.playButton?.isSpinning)!)")
+ 
     }
 }

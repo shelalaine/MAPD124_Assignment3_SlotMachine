@@ -23,15 +23,15 @@ class BetButton: SKSpriteNode {
         let betLabel = SKLabelNode(text: topName)
         betLabel.fontName = "Chalkduster"
         betLabel.fontSize = 32
+        betLabel.zPosition = self.zPosition + 1
+        self.addChild(betLabel)
         
         // Configure label 2
         let betLabel2 = SKLabelNode(text: bottomName)
-        betLabel2.position.y = -30
+        betLabel2.position.y = -30.0
         betLabel2.fontSize = 28
         betLabel2.fontName = "Helvetica Neue Condensed Bold"
-        
-        // Attach nodes to corresponding parents
-        self.addChild(betLabel)
+        betLabel2.zPosition = self.zPosition + 1
         self.addChild(betLabel2)
     }
     
