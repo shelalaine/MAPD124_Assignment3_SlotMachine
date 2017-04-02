@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,14 +20,66 @@
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
                     </layoutGuides>
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 3400" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nco-mo-BSX">
+                                <rect key="frame" x="575" y="815" width="105" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="EkM-aK-zwI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7z-Pd-Cls">
+                                <rect key="frame" x="104" y="815" width="105" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="bIN-JK-eLJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ea-3l-QxV">
+                                <rect key="frame" x="74" y="946" width="105" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="0SX-Kr-QYd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clv-ah-SMy">
+                                <rect key="frame" x="351" y="815" width="105" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="aBw-gG-P5F"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="E7z-Pd-Cls" firstAttribute="baseline" secondItem="clv-ah-SMy" secondAttribute="baseline" id="0KE-bM-2zc"/>
+                            <constraint firstItem="3Ea-3l-QxV" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="54" id="6Hw-bs-flW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Nco-mo-BSX" secondAttribute="trailing" constant="68" id="6ag-Vx-yfb"/>
+                            <constraint firstItem="3Ea-3l-QxV" firstAttribute="top" secondItem="E7z-Pd-Cls" secondAttribute="bottom" constant="78" id="AqR-H3-FEK"/>
+                            <constraint firstItem="clv-ah-SMy" firstAttribute="firstBaseline" secondItem="Nco-mo-BSX" secondAttribute="firstBaseline" id="GBE-oW-b2M"/>
+                            <constraint firstItem="clv-ah-SMy" firstAttribute="baseline" secondItem="Nco-mo-BSX" secondAttribute="baseline" id="RMh-kq-Ays"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="3Ea-3l-QxV" secondAttribute="bottom" constant="25" id="X4R-cM-Ewr"/>
+                            <constraint firstItem="E7z-Pd-Cls" firstAttribute="firstBaseline" secondItem="clv-ah-SMy" secondAttribute="firstBaseline" id="aEs-jE-wam"/>
+                            <constraint firstItem="clv-ah-SMy" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="351" id="mba-0j-dbR"/>
+                            <constraint firstItem="E7z-Pd-Cls" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="795" id="okr-lx-vZz"/>
+                            <constraint firstItem="E7z-Pd-Cls" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="84" id="vlh-p6-rev"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="clv-ah-SMy" secondAttribute="bottom" constant="156" id="xaw-Gr-olL"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="129.98500749625188"/>
+            <point key="canvasLocation" x="141.40625" y="129.4921875"/>
         </scene>
     </scenes>
 </document>

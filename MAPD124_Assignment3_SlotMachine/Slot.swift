@@ -24,6 +24,12 @@ public struct ReelSpinInfo {
 
 class Slot {
     
+    // Cash stuff
+    var totalCash: Double?
+    var totalBet: Int?
+    var won: Double?
+    var jackpot: Double?
+
     var reelSpinInfos = [ReelSpinInfo]()
     var stepSymbolSize: CGSize?
     var isSpinning: Bool?
@@ -31,6 +37,7 @@ class Slot {
 
     var randomSource:GKRandomSource?
     var scene: GameScene?
+
     
     let stepSymbolCount: Int!
 
@@ -39,18 +46,21 @@ class Slot {
         self.scene = scene
         self.isSpinning = false
         
-        stepSymbolCount = stepSymbol.count
-        
         // Save the size of the step symbol
         // TODO: Replace with the actual image's width and height
         stepSymbolSize = CGSize(width: 100.0, height: 120.0)
         print("Height: \(self.stepSymbolSize?.height)")
      
+        stepSymbolCount = stepSymbol.count
+
+        // Setup random source
+        self.randomSource = GKARC4RandomSource()
+
         // Setup the initial image rendered for the reel
         self.resetReels()
         
-        // Setup random source
-        self.randomSource = GKARC4RandomSource()
+        // Initialize the money
+        self.resetMoney()
     }
     
     // Reset the reels based on the position of the step count
@@ -80,8 +90,9 @@ class Slot {
             print("Reel \(index) random number: \(randomNumber), Total steps: \(self.reelSpinInfos[index].stepSpinTotal)")
         }
         
-        self.spinReels(spinReels(stepSpinDuration: 0.0))
+        self.spinReels(stepSpinDuration: stepScrollDuration)
     }
+    
     
     // Spin the reels
     private func spinReels(stepSpinDuration: Double) {
@@ -92,7 +103,9 @@ class Slot {
             self.reelActionSeqeuence(reel: index, stepSpinDuration: stepSpinDuration)
         }
         
-        // Spin each reel 
+
+        // Spin each reel
+        self.scene?.playButton?.isSpinning = true
         for index in 0..<self.reelSpinInfos.count - 1 {
             scene?.reels[index].reel?.run(SKAction.sequence(self.reelSpinInfos[index].actionSequence))
         }
@@ -100,10 +113,12 @@ class Slot {
         // Setup complete action upon completion of the last spinned reel
         let lastReel = reelSpinInfos.count - 1
         scene?.reels[lastReel].reel?.run(SKAction.sequence(self.reelSpinInfos[lastReel].actionSequence), completion: {
+            self.scene?.playButton?.isSpinning = false
             self.isSpinning = false
         })
     }
 
+    
     // Setup the sequence of actions generated for each reel
     private func reelActionSeqeuence(reel: Int, stepSpinDuration: Double) {
 
@@ -130,6 +145,12 @@ class Slot {
                                                duration: Double(stepScrollCount) * stepSpinDuration)
                 self.reelSpinInfos[reel].actionSequence.append(spinMoveBy)
                 
+                // Reset back to the first step
+                if stepScrollCount == self.stepSymbolCount {
+                    let reset = SKAction.moveTo(y: 0, duration: 0)
+                    self.reelSpinInfos[reel].actionSequence.append(reset)
+                }
+                
                 // Save the new step index of the reel
                 self.reelSpinInfos[reel].stepIndex = stepScrollCount % self.stepSymbolCount
             } else {
@@ -142,10 +163,8 @@ class Slot {
                                                  duration: Double(stepScrollCount) * stepSpinDuration)
                 
                 self.reelSpinInfos[reel].actionSequence.append(spinMoveTo)
-            }
-            
-            // Reset back to the first step
-            if stepScrollCount == self.stepSymbolCount {
+                
+                // Reset back to the first step
                 let reset = SKAction.moveTo(y: 0, duration: 0)
                 self.reelSpinInfos[reel].actionSequence.append(reset)
             }
@@ -158,11 +177,17 @@ class Slot {
         
     }
     
-    private func lastSpinAction() {
+    // Initializes money matters
+    private func resetMoney() {
+        self.totalCash = 2500
+        self.totalBet = 10
+        self.won = 0
+        self.jackpot = 10000
+    }
+    
+    // Check if you got lucky with the spin
+    private func checkWinnings() {
         
     }
     
-    private func notLastSpinAction() {
-        
-    }
 }

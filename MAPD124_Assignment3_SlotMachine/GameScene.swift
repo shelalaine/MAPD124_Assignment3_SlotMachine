@@ -13,7 +13,7 @@ var width:CGFloat?
 var height:CGFloat?
 
 class GameScene: SKScene, CustomButtonDelegate {
-    
+
     var slot:Slot?
     var reels:[Reel] = []
     var playButton:CustomButton?
@@ -112,7 +112,7 @@ class GameScene: SKScene, CustomButtonDelegate {
     
     // Configure the reels of the slot machine
     private func setupReels() {
-        let images:[String] = ["Reel1", "Reel2", "Reel3"]
+        let images:[String] = ["Reel1", "Reel1", "Reel1"]
         
         for i in 0..<images.count {
             reels.append(Reel())
@@ -134,19 +134,5 @@ class GameScene: SKScene, CustomButtonDelegate {
     public func spinReels() {
         
         slot?.spinReels()
-//        let spin = SKAction.moveTo(y: 8 * -130, duration: 1.20)
-//        let reset = SKAction.moveTo(y: 0, duration: 0)
-//        let sequence = SKAction.sequence([spin, reset])
-//        
-//        self.playButton?.isSpinning = true
-//        
-//        self.reels[0].reel?.run(SKAction.repeat(sequence, count: 5))
-//        self.reels[1].reel?.run(SKAction.repeat(sequence, count: 10))
-//        self.reels[2].reel?.run(SKAction.repeat(sequence, count: 15), completion: {
-//            self.playButton?.isSpinning = false
-//        })
-//        
-//        print("Spinning status: \((self.playButton?.isSpinning)!)")
- 
     }
 }

@@ -8,7 +8,22 @@
 
 import GameplayKit
 
+//public struct Win {
+//    var payline: String
+//    var combo: [Int]
+//}
+
+
 // Symbol information for the reels
+// Payline: Middle
+//  3 diamonds = 100
+//  3 sevens = 75
+//  3 bells = 50
+//  3 cherries = 45
+//  3 watermelons = 30
+//  3 bananas = 20
+//  3 apples = 15
+//  3 lemons = 10
 let stepSymbol: Dictionary<Int, String> = [
     0: "seven",
     1: "watermelon",
@@ -31,20 +46,26 @@ public let stepSymbolGap: CGFloat = 10.0
 public let reelInfos: [ReelInfo] = [
     ReelInfo(
         stepSymbolsInReel: [0, 1, 2, 3, 4, 5, 6, 7],
-        stepIndex: 1,
-        stepSpinTotal: 40
+//        stepIndex: 1,
+        stepIndex: 3,
+        stepSpinTotal: 40   // 1 second
     ),
     ReelInfo(
-        stepSymbolsInReel: [2, 6, 4, 3, 4, 5, 1, 0],
-        stepIndex: 7,
-        stepSpinTotal: 60
+//        stepSymbolsInReel: [2, 6, 4, 5, 7, 3, 1, 0],
+        stepSymbolsInReel: [0, 1, 2, 3, 4, 5, 6, 7],
+//        stepIndex: 7,
+        stepIndex: 3,
+        stepSpinTotal: 80   // 2 seconds
     ),
     ReelInfo(
-        stepSymbolsInReel: [4, 7, 5, 1, 6, 2, 0, 3],
-        stepIndex: 4,
-        stepSpinTotal: 80
+//        stepSymbolsInReel: [4, 7, 5, 1, 6, 2, 0, 3],
+        stepSymbolsInReel: [0, 1, 2, 3, 4, 5, 6, 7],
+//        stepIndex: 4,
+        stepIndex: 3,
+        stepSpinTotal: 120   // 3 seconds
     ),
 ]
+
 
 class SlotConstants {
 
