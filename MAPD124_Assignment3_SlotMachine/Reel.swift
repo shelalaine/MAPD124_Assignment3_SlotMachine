@@ -11,6 +11,7 @@ import SpriteKit
 class Reel: SKNode {
 
     var reel:SKSpriteNode?
+
     func configure(imageName: String, at position: CGPoint) {
         let anchor = CGPoint(x: 0.5, y: 0.0)
         
@@ -35,10 +36,11 @@ class Reel: SKNode {
         
         addChild(cropNode)
         print("x: \(position.x) y: \(position.y)")
-    }
-    
-    func spinReel() {
         
     }
+//    
+//    func spinReel() {
+//        let randomIndex = self.randomSource?.nextInt(upperBound: <#T##Int#>)
+//    }
     
 }

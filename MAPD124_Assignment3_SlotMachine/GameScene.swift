@@ -14,6 +14,7 @@ var height:CGFloat?
 
 class GameScene: SKScene, CustomButtonDelegate {
     
+    var slot:Slot?
     var reels:[Reel] = []
     var playButton:CustomButton?
     
@@ -41,6 +42,10 @@ class GameScene: SKScene, CustomButtonDelegate {
         
         // Add the reels
         self.setupReels()
+        
+        if self.slot == nil {
+            self.slot = Slot(scene: self)
+        }
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -128,31 +133,20 @@ class GameScene: SKScene, CustomButtonDelegate {
     // Spin reel handler
     public func spinReels() {
         
-        let delta = CGVector(dx: 0, dy: -650)
-        let spin = SKAction.move(by: delta, duration: 0.20)
-        let reset = SKAction.moveTo(y: 0, duration: 0)
-        let sequence = SKAction.sequence([spin, reset])
-        
-        //        let spinReel1 = SKAction.run {
-        //            self.reels[0].reel?.run(SKAction.repeat(sequence, count: 20))
-        //        }
-        //        let spinReel2 = SKAction.run {
-        //            self.reels[1].reel?.run(SKAction.repeat(sequence, count: 30))
-        //        }
-        //        let spinReel3 = SKAction.run {
-        //            self.reels[2].reel?.run(SKAction.repeat(sequence, count: 40))
-        //        }
-        //        SKAction.group([spinReel1, spinReel2, spinReel3])
-        
-        self.playButton?.isSpinning = true
-        
-        self.reels[0].reel?.run(SKAction.repeat(sequence, count: 5))
-        self.reels[1].reel?.run(SKAction.repeat(sequence, count: 10))
-        self.reels[2].reel?.run(SKAction.repeat(sequence, count: 15), completion: {
-            self.playButton?.isSpinning = false
-        })
-        
-        print("Spinning status: \((self.playButton?.isSpinning)!)")
+        slot?.spinReels()
+//        let spin = SKAction.moveTo(y: 8 * -130, duration: 1.20)
+//        let reset = SKAction.moveTo(y: 0, duration: 0)
+//        let sequence = SKAction.sequence([spin, reset])
+//        
+//        self.playButton?.isSpinning = true
+//        
+//        self.reels[0].reel?.run(SKAction.repeat(sequence, count: 5))
+//        self.reels[1].reel?.run(SKAction.repeat(sequence, count: 10))
+//        self.reels[2].reel?.run(SKAction.repeat(sequence, count: 15), completion: {
+//            self.playButton?.isSpinning = false
+//        })
+//        
+//        print("Spinning status: \((self.playButton?.isSpinning)!)")
  
     }
 }
