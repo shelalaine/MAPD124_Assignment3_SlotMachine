@@ -12,14 +12,25 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var wonLabel: UILabel!
+    
+    @IBOutlet weak var jackpotLabel: UILabel!
+    @IBOutlet weak var totalBetLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "GameScene") as? GameScene{
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
+                scene.balanceLabel = self.balanceLabel
+                scene.wonLabel = self.wonLabel
+                scene.jackpotLabel = self.jackpotLabel
+                scene.totalBetLabel = self.totalBetLabel
                 
                 // Present the scene
                 view.presentScene(scene)

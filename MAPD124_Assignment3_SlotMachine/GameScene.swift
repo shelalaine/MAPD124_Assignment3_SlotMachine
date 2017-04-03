@@ -8,15 +8,21 @@
 
 import SpriteKit
 import GameplayKit
+import UIKit
 
 var width:CGFloat?
 var height:CGFloat?
 
-class GameScene: SKScene, CustomButtonDelegate {
+class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
 
     var slot:Slot?
     var reels:[Reel] = []
-    var playButton:CustomButton?
+    
+    // Cash-related labels
+    var balanceLabel: UILabel?
+    var wonLabel: UILabel?
+    var jackpotLabel: UILabel?
+    var totalBetLabel: UILabel?
     
     override func didMove(to view: SKView) {
     
@@ -24,7 +30,7 @@ class GameScene: SKScene, CustomButtonDelegate {
         let screenSize = UIScreen.main.bounds
         width = screenSize.width
         height = screenSize.height
-    
+        
         // Add background
         let background = SKSpriteNode(imageNamed: "Background")
         background.zPosition = -2
@@ -37,14 +43,17 @@ class GameScene: SKScene, CustomButtonDelegate {
         header.zPosition = -1
         self.addChild(header)
         
-        // Add bet buttons
-        self.setupButtons()
-        
         // Add the reels
         self.setupReels()
         
+        // Add bet buttons
+        self.setupButtons()
+        
         if self.slot == nil {
             self.slot = Slot(scene: self)
+            
+            // Update the cash labels
+            self.slot?.updateAllCash()
         }
     }
     
@@ -77,6 +86,7 @@ class GameScene: SKScene, CustomButtonDelegate {
         // Called before each frame is rendered
     }
     
+    
     // Configure the bet and spin buttons
     private func setupButtons() {
 
@@ -87,27 +97,36 @@ class GameScene: SKScene, CustomButtonDelegate {
                                 at: CGPoint(x: 0,
                                             y: betHeight),
                                 topName: "Bet", bottomName: "+")
+        // Set the Bet button delegates
+        betPlus.name = "betPlus"
+        betPlus.delegate = self
+
         
         let betMinus = BetButton(imageName: "BetPlusMinus",
                                  at: CGPoint(x: 0 - betPlus.size.width,
                                              y: betHeight),
                                  topName: "Bet", bottomName: "-")
-        
+        betMinus.name = "betMinus"
+        betMinus.delegate = self
+
         let betMax = BetButton(imageName: "BetMax",
                                at: CGPoint(x: betPlus.size.width,
                                            y: betHeight),
                                topName: "Bet", bottomName: "Max")
+        betMax.name = "betMax"
+        betMax.delegate = self
+        
         self.addChild(betPlus)
         self.addChild(betMinus)
         self.addChild(betMax)
-
+        
         // Setup the Spin button
         // x = 270, y = -420
-        playButton = CustomButton()
-        playButton?.delegate = self
-        playButton?.configure(at: CGPoint(x: 0.3490 * width!,
-                                          y: -0.4238 * height!))
-        self.addChild(playButton!)
+        let playButton = CustomButton(imageName: ["SpinButtonRelease", "SpinButtonPress"],
+                                       at: CGPoint(x: 0.3490 * width!,
+                                                   y: -0.4238 * height!))
+        playButton.delegate = self
+        self.addChild(playButton)
     }
     
     // Configure the reels of the slot machine
@@ -130,9 +149,31 @@ class GameScene: SKScene, CustomButtonDelegate {
         }
     }
     
+    // Custom Button Handler
+    public func buttonPressed() {
+    }
+    
+    public func buttonReleased() {
+        if (!(self.slot?.isSpinning)!) {
+            slot?.spinReels()
+        }
+    }
+    
+    
     // Spin reel handler
     public func spinReels() {
-        
-        slot?.spinReels()
+//        slot?.spinReels()
     }
+    
+    // Bet button handler
+    func betButtonPressed(name: String) {
+        if (name == "betPlus") {
+            self.slot?.increaseBet()
+        } else if (name == "betMinus"){
+            self.slot?.decreaseBet()
+        } else if (name == "betMax"){
+            self.slot?.maxBet()
+        }
+    }
+
 }

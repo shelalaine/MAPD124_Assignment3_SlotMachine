@@ -38,9 +38,4 @@ class Reel: SKNode {
         print("x: \(position.x) y: \(position.y)")
         
     }
-//    
-//    func spinReel() {
-//        let randomIndex = self.randomSource?.nextInt(upperBound: <#T##Int#>)
-//    }
-    
 }

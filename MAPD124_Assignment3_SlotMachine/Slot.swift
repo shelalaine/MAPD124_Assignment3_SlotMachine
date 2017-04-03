@@ -25,15 +25,15 @@ public struct ReelSpinInfo {
 class Slot {
     
     // Cash stuff
-    var totalCash: Double?
-    var totalBet: Int?
-    var won: Double?
-    var jackpot: Double?
+    private var totalCash: Double?
+    private var totalBet: Int?
+    private var won: Int?
+    private var jackpot: Double?
+    private var betIncrementIndex: Int?
 
-    var reelSpinInfos = [ReelSpinInfo]()
-    var stepSymbolSize: CGSize?
+    private var reelSpinInfos = [ReelSpinInfo]()
+    private var stepSymbolSize: CGSize?
     var isSpinning: Bool?
-    var reelSpinInfo: [ReelSpinInfo]?
 
     var randomSource:GKRandomSource?
     var scene: GameScene?
@@ -56,11 +56,12 @@ class Slot {
         // Setup random source
         self.randomSource = GKARC4RandomSource()
 
-        // Setup the initial image rendered for the reel
-        self.resetReels()
-        
         // Initialize the money
         self.resetMoney()
+        
+        // Setup the initial image rendered for the reel
+        self.resetReels()
+
     }
     
     // Reset the reels based on the position of the step count
@@ -91,31 +92,55 @@ class Slot {
         }
         
         self.spinReels(stepSpinDuration: stepScrollDuration)
+        
     }
     
     
     // Spin the reels
     private func spinReels(stepSpinDuration: Double) {
         
-        // Setup the sequence of spin actions generated for each reel
-        for index in 0..<self.reelSpinInfos.count {
-            self.reelSpinInfos[index].actionSequence.removeAll();
-            self.reelActionSeqeuence(reel: index, stepSpinDuration: stepSpinDuration)
-        }
+        // Check if there is enough dough to spin
+        let newBalance = self.totalCash! - Double(self.totalBet!)
+        if (newBalance >= 0) {
+            
+            // Deduct bet from total cash
+            self.totalCash = newBalance
+            self.showTotalCash()
         
+            // Setup the sequence of spin actions generated for each reel
+            for index in 0..<self.reelSpinInfos.count {
+                self.reelSpinInfos[index].actionSequence.removeAll();
+                self.reelActionSeqeuence(reel: index, stepSpinDuration: stepSpinDuration)
+            }
+            
+            
+            // Spin each reel
+            self.isSpinning = true
+            for index in 0..<self.reelSpinInfos.count - 1 {
+                scene?.reels[index].reel?.run(SKAction.sequence(self.reelSpinInfos[index].actionSequence))
+            }
+            
+            // Setup complete action upon completion of the last spinned reel
+            let lastReel = reelSpinInfos.count - 1
+            scene?.reels[lastReel].reel?.run(SKAction.sequence(self.reelSpinInfos[lastReel].actionSequence), completion: {
+                self.isSpinning = false
+                
+                print("Spin complete")
+                if stepSpinDuration > 0 {
 
-        // Spin each reel
-        self.scene?.playButton?.isSpinning = true
-        for index in 0..<self.reelSpinInfos.count - 1 {
-            scene?.reels[index].reel?.run(SKAction.sequence(self.reelSpinInfos[index].actionSequence))
+                    // Show amount won
+                    self.won = self.checkWinnings()
+                    self.showTotalWon()
+                    
+                    if (self.won! > 0) {
+                        
+                        // Update total cash
+                        self.totalCash = self.totalCash! + Double(self.won!)
+                        self.showTotalCash()
+                    }
+                }
+            })
         }
-        
-        // Setup complete action upon completion of the last spinned reel
-        let lastReel = reelSpinInfos.count - 1
-        scene?.reels[lastReel].reel?.run(SKAction.sequence(self.reelSpinInfos[lastReel].actionSequence), completion: {
-            self.scene?.playButton?.isSpinning = false
-            self.isSpinning = false
-        })
     }
 
     
@@ -176,18 +201,132 @@ class Slot {
         } while self.reelSpinInfos[reel].stepSpinTotal > 0
         
     }
+   
+    // Increase bet
+    public func increaseBet() {
+        
+        if betIncrementIndex! < (betIncrements.count - 1) {
+            // Increase bet
+            betIncrementIndex = betIncrementIndex! + 1
+            self.showTotalBet()
+        }
+    }
+    
+    // Decrease bet
+    public func decreaseBet() {
+        
+        if betIncrementIndex! > 0 {
+            // Decrease bet
+            betIncrementIndex = betIncrementIndex! - 1
+            self.showTotalBet()
+        }
+    }
+    
+    // Set to the maximum possible allowable bet
+    public func maxBet() {
+
+        betIncrementIndex = (betIncrements.count - 1)
+        self.showTotalBet()
+    }
+    
+    private func showTotalBet() {
+        self.totalBet = betIncrements[betIncrementIndex!]
+        
+        // Update the total bet
+        self.scene?.totalBetLabel?.text = "$ \(self.totalBet!)"
+    }
+    
+    public func showTotalCash() {
+        let data = String((self.totalCash)!).components(separatedBy: ".")
+        self.scene?.balanceLabel?.text = "$ \(data[0])"
+    }
+    
+    public func showTotalWon() {
+        let data = String((self.won)!).components(separatedBy: ".")
+        self.scene?.wonLabel?.text = "$ \(data[0])"
+    }
+    
+    // Update all cash displays
+    public func updateAllCash() {
+        self.showTotalCash()
+        self.showTotalWon()
+        
+        // Show jackpot
+        let data = String((self.jackpot)!).components(separatedBy: ".")
+        self.scene?.jackpotLabel?.text = "$ \(data[0])"
+        
+        // Update the total bet
+        self.scene?.totalBetLabel?.text = "$ \(self.totalBet!)"
+    }
     
     // Initializes money matters
     private func resetMoney() {
-        self.totalCash = 2500
-        self.totalBet = 10
+        self.betIncrementIndex = 2
+        self.totalBet = betIncrements[betIncrementIndex!]
+        self.totalCash = 2500 + Double(self.totalBet!)
         self.won = 0
-        self.jackpot = 10000
+        self.jackpot = 100000
     }
     
+    
     // Check if you got lucky with the spin
-    private func checkWinnings() {
+    private func checkWinnings() -> Int {
         
+        var amountWon = 0
+        // Index
+        // 0 - bottom, 
+        // 1 - middle, 
+        // 2 - top, 
+        // 3 - '\', 
+        // 4 - '/'
+        var isMatching:[Int] = [1, 1, 1, 1, 1]      // Assume all are matching
+        let symbols:[Int] = self.getSymbols(for: 0, bottom: self.reelSpinInfos[0].stepIndex)
+        
+        // Check if all indices match
+        for index in 1..<self.reelSpinInfos.count {
+            
+            // Get the corresponding symbols in the specified Reel
+            let newSymbols = self.getSymbols(for: index, bottom: self.reelSpinInfos[index].stepIndex)
+            
+            // Check for a match for all payline patterns: bottom, middle, top, '\', '/'
+            for i in 0..<symbols.count {
+                isMatching[i] = Int(isMatching[i]) &
+                    Int((symbols[i] == newSymbols[i]) ? 1 : 0)
+            }
+        }
+        
+        // Return the amount won in the bottom line
+        for index in 0..<isMatching.count {
+            if (isMatching[index] == 1) {
+                amountWon += winnings[stepSymbol[symbols[index]]!]! * self.totalBet!
+                print("Pattern \(index) won: \(winnings[stepSymbol[symbols[index]]!]! * self.totalBet!)" )
+            }
+        }
+
+        return amountWon
     }
+    
+    // Get the corresponding symbols in the specified Reel
+    private func getSymbols(for reel: Int, bottom: Int) -> [Int]{
+        var symbols:[Int] = [0, 0, 0, 0, 0]
+        
+        // Bottom Pattern
+        symbols[0] = bottom
+        
+        // Middle Pattern
+        symbols[1] = (bottom + 1) % self.stepSymbolCount!
+        
+        // Top Pattern
+        symbols[2] = (bottom + 2) % self.stepSymbolCount!
+        
+        // '\' Diagonal Pattern
+        symbols[3] = (bottom + ((reelCount - 1) - reel)) % self.stepSymbolCount!
+        
+        // '/' Diagonal Pattern
+        symbols[4] = (bottom + reel) % self.stepSymbolCount!
+        
+        return symbols
+    }
+
     
 }

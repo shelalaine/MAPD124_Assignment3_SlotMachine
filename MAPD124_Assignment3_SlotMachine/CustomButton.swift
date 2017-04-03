@@ -12,70 +12,60 @@ import SpriteKit
 import CoreGraphics
 
 protocol CustomButtonDelegate: class {
-    func spinReels()
+    func buttonPressed()
+    func buttonReleased()
 }
 
-class CustomButton: SKNode {
+class CustomButton: SKSpriteNode {
     
-    var imageSprite: SKSpriteNode?
-    var xPosReleased:CGFloat?
-    var xPosPressed:CGFloat?
-    var isSpinning:Bool?
+    var textureAtlas: SKTextureAtlas?
     weak var delegate:CustomButtonDelegate?
     
-    override init() {
-        super.init()
+    init(imageName: [String],
+         at position: CGPoint) {
+        
+        // TODO: Replace hard-coding of the image size
+        super.init(texture: SKTexture(imageNamed: imageName[0]),
+                                   color: UIColor.clear,
+                                   size: CGSize(width: 150, height: 150))
+        self.position = position
         self.isUserInteractionEnabled = true
+
+        // Save images to memory to speed up image rendering
+        guard let press = UIImage(named: imageName[1]),
+            let release = UIImage(named: imageName[0]) else {
+                return
+        }
+        textureAtlas = SKTextureAtlas(dictionary: [
+            "release": release,
+            "press": press])
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(at position: CGPoint) {
-        if (imageSprite == nil) {
-            
-            // Setup the mask
-            let cropNode = SKCropNode()
-            cropNode.zPosition = 1
-            let sprite = SKSpriteNode(imageNamed: "ButtonMask")
-            sprite.position = position
-            cropNode.maskNode = sprite
-            
-            // Setup the released and pressed x positions
-            xPosPressed = position.x + (sprite.size.width / 2) + 1
-            xPosReleased = (position.x - (sprite.size.width / 2))
-            print("\(xPosReleased!) \(position.x) \(xPosPressed!)")
-            
-            imageSprite = SKSpriteNode(imageNamed: "Button")
-            imageSprite?.position = CGPoint(x: xPosReleased!, y: position.y)
-            
-            cropNode.addChild(imageSprite!)
-            self.addChild(cropNode)
-            
-            self.isSpinning = false
-        }
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         buttonPressed()
+        if delegate != nil {
+            delegate?.buttonPressed()
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         buttonReleased()
         if delegate != nil {
-            if self.isSpinning == false {
-                delegate?.spinReels()
-            }
+            delegate?.buttonReleased()
         }
     }
     
     public func buttonPressed() {
-        self.imageSprite?.position.x = xPosPressed!
+        self.texture = textureAtlas?.textureNamed("press")
     }
     
     public func buttonReleased() {
-        self.imageSprite?.position.x = xPosReleased!
+        self.texture = textureAtlas?.textureNamed("release")
     }
     
 }

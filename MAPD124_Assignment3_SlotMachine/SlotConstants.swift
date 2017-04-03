@@ -8,11 +8,6 @@
 
 import GameplayKit
 
-//public struct Win {
-//    var payline: String
-//    var combo: [Int]
-//}
-
 
 // Symbol information for the reels
 // Payline: Middle
@@ -33,6 +28,17 @@ let stepSymbol: Dictionary<Int, String> = [
     5: "lemon",
     6: "bell",
     7: "apple"
+]
+
+let winnings: Dictionary<String, Int> = [
+    "diamond": 100,
+    "seven": 75,
+    "bell": 50,
+    "cherry": 45,
+    "watermelon": 30,
+    "banana": 20,
+    "apple": 15,
+    "lemon": 10
 ]
 
 // Spin information
@@ -66,6 +72,7 @@ public let reelInfos: [ReelInfo] = [
     ),
 ]
 
+public let betIncrements = [1, 5, 10, 25, 50, 100, 250, 500]
 
 class SlotConstants {
 
