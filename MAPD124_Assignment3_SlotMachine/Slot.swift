@@ -342,8 +342,12 @@ class Slot {
         }
         
         // Check if the jackpot was won
-        if isMatching[2] == 1 {
-            if (stepSymbol[symbols[2]] == "diamond") {
+        // Bottom payline contains all banana symbols
+        // Middle payline contains all diamond symbols
+        // Top payline contains all lemon symbols
+        print("Reel 1, Middle Symbol: \(stepSymbol[symbols[1]])")
+        if isMatching[1] == 1 {
+            if (stepSymbol[symbols[1]] == "diamond") {
                 amountWon = amountWon + Int(self.jackpot!)
                 isJackpotWon = true
             }
