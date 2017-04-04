@@ -40,7 +40,7 @@ class Reel: SKNode {
         cropNode.addChild(reel!)
         
         addChild(cropNode)
-        print("x: \(position.x) y: \(position.y)")
+//        print("x: \(position.x) y: \(position.y)")
         
     }
 }
