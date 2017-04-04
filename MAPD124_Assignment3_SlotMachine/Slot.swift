@@ -8,6 +8,7 @@
 
 import GameplayKit
 import SpriteKit
+import AVFoundation
 
 public struct ReelInfo {
     var stepSymbolsInReel: [Int]
@@ -64,6 +65,8 @@ class Slot {
 
     }
     
+
+    
     // Reset the reels based on the position of the step count
     public func resetReels() {
         
@@ -103,6 +106,8 @@ class Slot {
         let newBalance = self.totalCash! - Double(self.totalBet!)
         if (newBalance >= 0) {
             
+            self.generateJackpot(status: false)
+            
             // Deduct bet from total cash
             self.totalCash = newBalance
             self.showTotalCash()
@@ -113,6 +118,10 @@ class Slot {
                 self.reelActionSeqeuence(reel: index, stepSpinDuration: stepSpinDuration)
             }
             
+            if (stepSpinDuration > 0) {
+                // Play sound if necessary
+                self.scene?.spinningSound?.run(SKAction.play())
+            }
             
             // Spin each reel
             self.isSpinning = true
@@ -124,26 +133,48 @@ class Slot {
             let lastReel = reelSpinInfos.count - 1
             scene?.reels[lastReel].reel?.run(SKAction.sequence(self.reelSpinInfos[lastReel].actionSequence), completion: {
                 self.isSpinning = false
-                
-                print("Spin complete")
-                if stepSpinDuration > 0 {
-
-                    // Show amount won
-                    self.won = self.checkWinnings()
-                    self.showTotalWon()
-                    
-                    if (self.won! > 0) {
-                        
-                        // Update total cash
-                        self.totalCash = self.totalCash! + Double(self.won!)
-                        self.showTotalCash()
-                    }
+                if (stepSpinDuration > 0) {
+                    self.scene?.spinningSound?.run(SKAction.stop())
+                    self.spinComplete()
                 }
             })
         }
     }
-
     
+    private func spinComplete() {
+        
+        // Show amount won
+        let winningInfo = self.checkWinnings()
+        self.won = winningInfo.0
+        self.showTotalWon()
+        
+        if (self.won! > 0) {
+            
+            // Update total cash
+            self.totalCash = self.totalCash! + Double(self.won!)
+            self.showTotalCash()
+            
+            // Do jackpot animation and cheer if applicable
+            if (winningInfo.1) {
+                generateJackpot(status: true)
+            } else {
+                self.scene?.run(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
+            }
+        }
+    }
+    
+    // Show or hide the jackpot imate
+    private func generateJackpot(status: Bool) {
+        if (status) {
+            self.scene?.jackpot?.zPosition = 0
+            self.scene?.run(SKAction.playSoundFileNamed("jinglewin.wav", waitForCompletion: true), completion: {
+                self.scene?.jackpot?.zPosition = -3
+            })
+        } else {
+            self.scene?.jackpot?.zPosition = -3
+        }
+    }
+
     // Setup the sequence of actions generated for each reel
     private func reelActionSeqeuence(reel: Int, stepSpinDuration: Double) {
 
@@ -270,8 +301,9 @@ class Slot {
     
     
     // Check if you got lucky with the spin
-    private func checkWinnings() -> Int {
+    private func checkWinnings() -> (Int, Bool) {
         
+        var isJackpotWon = false
         var amountWon = 0
         // Index
         // 0 - bottom, 
@@ -302,8 +334,16 @@ class Slot {
                 print("Pattern \(index) won: \(winnings[stepSymbol[symbols[index]]!]! * self.totalBet!)" )
             }
         }
+        
+        // Check if the jackpot was won
+        if isMatching[2] == 1 {
+            if (stepSymbol[symbols[2]] == "diamond") {
+                amountWon = amountWon + Int(self.jackpot!)
+                isJackpotWon = true
+            }
+        }
 
-        return amountWon
+        return (amountWon, isJackpotWon)
     }
     
     // Get the corresponding symbols in the specified Reel
@@ -328,5 +368,6 @@ class Slot {
         return symbols
     }
 
+    
     
 }

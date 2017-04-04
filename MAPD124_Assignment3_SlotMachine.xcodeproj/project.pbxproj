@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2D14F19F1E8F606300C4AD15 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D14F19E1E8F606300C4AD15 /* Slot.swift */; };
 		2D19C9431E898B99009FF236 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D19C9421E898B99009FF236 /* CustomButton.swift */; };
+		2D2632FD1E931FA1008BF391 /* spinning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D2632FC1E931FA1008BF391 /* spinning.wav */; };
+		2D2633011E93244E008BF391 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D2633001E93244E008BF391 /* win.wav */; };
+		2D2633051E93283A008BF391 /* jinglewin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D2633041E93283A008BF391 /* jinglewin.wav */; };
 		2D7FBBFF1E900B7D007B12DD /* SlotConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7FBBFE1E900B7D007B12DD /* SlotConstants.swift */; };
 		2D9F86371E8AC858000EDE36 /* BetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F86361E8AC858000EDE36 /* BetButton.swift */; };
 		2DB3CD611E86F96600E548EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3CD601E86F96600E548EC /* AppDelegate.swift */; };
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		2D14F19E1E8F606300C4AD15 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
 		2D19C9421E898B99009FF236 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		2D2632FC1E931FA1008BF391 /* spinning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinning.wav; sourceTree = "<group>"; };
+		2D2633001E93244E008BF391 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		2D2633041E93283A008BF391 /* jinglewin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jinglewin.wav; sourceTree = "<group>"; };
 		2D7FBBFE1E900B7D007B12DD /* SlotConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotConstants.swift; sourceTree = "<group>"; };
 		2D9F86361E8AC858000EDE36 /* BetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetButton.swift; sourceTree = "<group>"; };
 		2DB3CD5D1E86F96600E548EC /* MAPD124_Assignment3_SlotMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MAPD124_Assignment3_SlotMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +57,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D2632F91E92FEFA008BF391 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				2D2632FC1E931FA1008BF391 /* spinning.wav */,
+				2D2633001E93244E008BF391 /* win.wav */,
+				2D2633041E93283A008BF391 /* jinglewin.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		2D7FBC001E90104A007B12DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +101,7 @@
 				2DB3CD661E86F96600E548EC /* GameScene.swift */,
 				2DB3CD681E86F96600E548EC /* GameViewController.swift */,
 				2DB3CD6A1E86F96600E548EC /* Main.storyboard */,
+				2D2632F91E92FEFA008BF391 /* Sounds */,
 				2D7FBC001E90104A007B12DD /* Data */,
 				2DB3CD7A1E87052000E548EC /* Objects */,
 				2DB3CD7B1E87054200E548EC /* Support */,
@@ -173,9 +190,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DB3CD6C1E86F96600E548EC /* Main.storyboard in Resources */,
+				2D2633011E93244E008BF391 /* win.wav in Resources */,
 				2DB3CD631E86F96600E548EC /* GameScene.sks in Resources */,
+				2D2633051E93283A008BF391 /* jinglewin.wav in Resources */,
 				2DB3CD6E1E86F96600E548EC /* Assets.xcassets in Resources */,
 				2DB3CD711E86F96600E548EC /* LaunchScreen.storyboard in Resources */,
+				2D2632FD1E931FA1008BF391 /* spinning.wav in Resources */,
 				2DB3CD651E86F96600E548EC /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

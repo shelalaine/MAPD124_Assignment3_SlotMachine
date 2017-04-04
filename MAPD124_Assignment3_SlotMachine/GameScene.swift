@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 import UIKit
 
 var width:CGFloat?
@@ -17,6 +18,8 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
 
     var slot:Slot?
     var reels:[Reel] = []
+    var spinningSound: SKAudioNode?
+    var jackpot: SKSpriteNode?
     
     // Cash-related labels
     var balanceLabel: UILabel?
@@ -30,6 +33,13 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
         let screenSize = UIScreen.main.bounds
         width = screenSize.width
         height = screenSize.height
+        
+        // Add jackpot
+        let sprite = SKSpriteNode(imageNamed: "Jackpot")
+        sprite.zPosition = -3
+        sprite.position = CGPoint(x: 0.0, y: 0.2342 * height!)
+        self.addChild(sprite)
+        self.jackpot = sprite
         
         // Add background
         let background = SKSpriteNode(imageNamed: "Background")
@@ -55,6 +65,15 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
             // Update the cash labels
             self.slot?.updateAllCash()
         }
+        
+        // Preload the sounds
+        self.preloadSounds()
+
+        // Setup sounds
+        let spinningSound1 = SKAudioNode(fileNamed: "spinning.wav")
+        self.spinningSound = spinningSound1
+        self.addChild(spinningSound1)
+        self.spinningSound?.run(SKAction.stop())
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -84,6 +103,22 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    // Preload the sounds
+    private func preloadSounds() {
+        
+        do {
+            let sounds: [String] = ["spinning", "win", "jinglewin"]
+            for sound in sounds {
+                let path: String = Bundle.main.path(forResource: sound, ofType: "wav")!
+                let url: URL = URL(fileURLWithPath: path)
+                let player: AVAudioPlayer = try AVAudioPlayer(contentsOf: url)
+                player.prepareToPlay()
+            }
+        } catch {
+            print("Audio file not found!")
+        }
     }
     
     
@@ -161,9 +196,9 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
     
     
     // Spin reel handler
-    public func spinReels() {
-//        slot?.spinReels()
-    }
+//    public func spinReels() {
+////        slot?.spinReels()
+//    }
     
     // Bet button handler
     func betButtonPressed(name: String) {

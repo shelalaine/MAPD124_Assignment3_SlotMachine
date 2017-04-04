@@ -52,21 +52,18 @@ public let stepSymbolGap: CGFloat = 10.0
 public let reelInfos: [ReelInfo] = [
     ReelInfo(
         stepSymbolsInReel: [0, 1, 2, 3, 4, 5, 6, 7],
-//        stepIndex: 1,
         stepIndex: 3,
         stepSpinTotal: 40   // 1 second
     ),
     ReelInfo(
-//        stepSymbolsInReel: [2, 6, 4, 5, 7, 3, 1, 0],
+//        stepSymbolsInReel: [2, 6, 4, 5, 7, 3, 1, 0],  // For unique Reel 2 
         stepSymbolsInReel: [0, 1, 2, 3, 4, 5, 6, 7],
-//        stepIndex: 7,
         stepIndex: 3,
         stepSpinTotal: 80   // 2 seconds
     ),
     ReelInfo(
-//        stepSymbolsInReel: [4, 7, 5, 1, 6, 2, 0, 3],
+//        stepSymbolsInReel: [4, 7, 5, 1, 6, 2, 0, 3],  // For unique Reel 3
         stepSymbolsInReel: [0, 1, 2, 3, 4, 5, 6, 7],
-//        stepIndex: 4,
         stepIndex: 3,
         stepSpinTotal: 120   // 3 seconds
     ),
