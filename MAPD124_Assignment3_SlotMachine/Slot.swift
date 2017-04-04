@@ -93,13 +93,22 @@ class Slot {
     // Spin the slot machine reels
     public func spinReels() {
         
-        // Setup the number of steps to be spinned per reel
-        for index in 0..<reelInfos.count {
-            let randomNumber = randomSource?.nextInt(upperBound: stepSymbolCount)
-            self.reelSpinInfos[index].stepSpinTotal = randomNumber! + reelInfos[index].stepSpinTotal
-            print("Reel \(index) random number: \(randomNumber), Total steps: \(self.reelSpinInfos[index].stepSpinTotal)")
+        // Check if jackpot may be generated 
+        if (self.scene?.cheats?.shouldGenereJackpot())! {
+            // Setup the number of steps to be spinned per reel
+            for index in 0..<reelInfos.count {
+                self.reelSpinInfos[index].stepSpinTotal =  reelInfos[index].stepSpinTotal + 3
+                self.reelSpinInfos[index].stepIndex = 0
+            }
+        } else {
+            // Setup the number of steps to be spinned per reel
+            for index in 0..<reelInfos.count {
+                let randomNumber = randomSource?.nextInt(upperBound: stepSymbolCount)
+                self.reelSpinInfos[index].stepSpinTotal = randomNumber! + reelInfos[index].stepSpinTotal
+                print("Reel \(index) random number: \(randomNumber), Total steps: \(self.reelSpinInfos[index].stepSpinTotal)")
+            }
         }
-        
+
         self.spinReels(stepSpinDuration: stepScrollDuration)
         
     }

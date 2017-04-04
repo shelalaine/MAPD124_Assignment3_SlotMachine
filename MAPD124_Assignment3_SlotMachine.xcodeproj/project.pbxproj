@@ -12,6 +12,7 @@
 		2D2632FD1E931FA1008BF391 /* spinning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D2632FC1E931FA1008BF391 /* spinning.wav */; };
 		2D2633011E93244E008BF391 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D2633001E93244E008BF391 /* win.wav */; };
 		2D2633051E93283A008BF391 /* jinglewin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D2633041E93283A008BF391 /* jinglewin.wav */; };
+		2D2633071E93613F008BF391 /* Cheats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2633061E93613F008BF391 /* Cheats.swift */; };
 		2D7FBBFF1E900B7D007B12DD /* SlotConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7FBBFE1E900B7D007B12DD /* SlotConstants.swift */; };
 		2D9F86371E8AC858000EDE36 /* BetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F86361E8AC858000EDE36 /* BetButton.swift */; };
 		2DB3CD611E86F96600E548EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3CD601E86F96600E548EC /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 		2D2632FC1E931FA1008BF391 /* spinning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinning.wav; sourceTree = "<group>"; };
 		2D2633001E93244E008BF391 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		2D2633041E93283A008BF391 /* jinglewin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jinglewin.wav; sourceTree = "<group>"; };
+		2D2633061E93613F008BF391 /* Cheats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cheats.swift; sourceTree = "<group>"; };
 		2D7FBBFE1E900B7D007B12DD /* SlotConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotConstants.swift; sourceTree = "<group>"; };
 		2D9F86361E8AC858000EDE36 /* BetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetButton.swift; sourceTree = "<group>"; };
 		2DB3CD5D1E86F96600E548EC /* MAPD124_Assignment3_SlotMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MAPD124_Assignment3_SlotMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				2D14F19E1E8F606300C4AD15 /* Slot.swift */,
+				2D2633061E93613F008BF391 /* Cheats.swift */,
 				2D7FBBFE1E900B7D007B12DD /* SlotConstants.swift */,
 			);
 			name = Data;
@@ -213,6 +216,7 @@
 				2D14F19F1E8F606300C4AD15 /* Slot.swift in Sources */,
 				2DB3CD691E86F96600E548EC /* GameViewController.swift in Sources */,
 				2D7FBBFF1E900B7D007B12DD /* SlotConstants.swift in Sources */,
+				2D2633071E93613F008BF391 /* Cheats.swift in Sources */,
 				2DB3CD611E86F96600E548EC /* AppDelegate.swift in Sources */,
 				2D9F86371E8AC858000EDE36 /* BetButton.swift in Sources */,
 			);

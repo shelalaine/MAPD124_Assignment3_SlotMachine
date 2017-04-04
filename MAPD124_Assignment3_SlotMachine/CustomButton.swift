@@ -17,8 +17,8 @@ import SpriteKit
 import CoreGraphics
 
 protocol CustomButtonDelegate: class {
-    func buttonPressed()
-    func buttonReleased()
+    func buttonPressed(name: String)
+    func buttonReleased(name: String)
 }
 
 class CustomButton: SKSpriteNode {
@@ -30,9 +30,10 @@ class CustomButton: SKSpriteNode {
          at position: CGPoint) {
         
         // TODO: Replace hard-coding of the image size
-        super.init(texture: SKTexture(imageNamed: imageName[0]),
+        let texture = SKTexture(imageNamed: imageName[0])
+        super.init(texture: texture,
                                    color: UIColor.clear,
-                                   size: CGSize(width: 150, height: 150))
+                                   size: texture.size())
         self.position = position
         self.isUserInteractionEnabled = true
 
@@ -54,14 +55,14 @@ class CustomButton: SKSpriteNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         buttonPressed()
         if delegate != nil {
-            delegate?.buttonPressed()
+            delegate?.buttonPressed(name: self.name!)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         buttonReleased()
         if delegate != nil {
-            delegate?.buttonReleased()
+            delegate?.buttonReleased(name: self.name!)
         }
     }
     

@@ -32,6 +32,8 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
     var jackpotLabel: UILabel?
     var totalBetLabel: UILabel?
     
+    var cheats:Cheats?
+    
     override func didMove(to view: SKView) {
     
         // Save the size
@@ -79,6 +81,10 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
         self.spinningSound = spinningSound1
         self.addChild(spinningSound1)
         self.spinningSound?.run(SKAction.stop())
+        
+        // Add cheat support
+        let cheat = Cheats(scene: self)
+        self.cheats = cheat
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -165,6 +171,7 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
         let playButton = CustomButton(imageName: ["SpinButtonRelease", "SpinButtonPress"],
                                        at: CGPoint(x: 0.3490 * width!,
                                                    y: -0.4238 * height!))
+        playButton.name = "Spin"
         playButton.delegate = self
         self.addChild(playButton)
     }
@@ -190,23 +197,27 @@ class GameScene: SKScene, CustomButtonDelegate, BetButtonDelegate {
     }
     
     // Custom Button Handler
-    public func buttonPressed() {
-    }
-    
-    public func buttonReleased() {
-        if (!(self.slot?.isSpinning)!) {
-            slot?.spinReels()
+    public func buttonPressed(name: String) {
+        if (name == "Cheat") {
+            self.cheats?.cheatButtonEvent()
         }
     }
     
+    public func buttonReleased(name: String) {
+        if (!(self.slot?.isSpinning)!) && name == "Spin" {
+            slot?.spinReels()
+            // Reset cheat tracker
+            self.cheats?.cheatReset()
+        }
+    }
     
-    // Spin reel handler
-//    public func spinReels() {
-////        slot?.spinReels()
-//    }
-    
+     
     // Bet button handler
     func betButtonPressed(name: String) {
+        // Reset cheat tracker
+        self.cheats?.cheatReset()
+        
+        // Check the type of bet button pressed
         if (name == "betPlus") {
             self.slot?.increaseBet()
         } else if (name == "betMinus"){
