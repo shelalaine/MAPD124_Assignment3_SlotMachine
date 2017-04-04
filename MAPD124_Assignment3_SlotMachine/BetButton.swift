@@ -1,8 +1,13 @@
 //
-//  BetButton.swift
-//  MAPD124_Assignment3_SlotMachine
+//  File Name:      BetButton.swift
+//  Project Name:   MAPD124-Assignment3
+//  Description:    Bet Button object used in the Control panel
+//                  Most of the images used in this project are downloaded and credited from www.freepik.com
 //
-//  Created by Shelalaine Chan on 2017-03-28.
+//  Created by:     Shelalaine Chan
+//  Student ID:     300924281
+//  Change History: 2017-03-28, Created
+//
 //  Copyright © 2017 ShelalaineChan. All rights reserved.
 //
 

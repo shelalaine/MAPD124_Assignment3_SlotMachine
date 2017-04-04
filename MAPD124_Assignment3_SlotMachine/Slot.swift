@@ -1,8 +1,14 @@
 //
-//  Slot.swift
-//  MAPD124_Assignment3_SlotMachine
 //
-//  Created by Shelalaine Chan on 2017-04-01.
+//  File Name:      Slot.swift
+//  Project Name:   MAPD124-Assignment3
+//  Description:    Slot Controller/Manager
+//                  Most of the images used in this project are downloaded and credited from www.freepik.com
+//
+//  Created by:     Shelalaine Chan
+//  Student ID:     300924281
+//  Change History: 2017-04-01, Created
+//
 //  Copyright © 2017 ShelalaineChan. All rights reserved.
 //
 

@@ -1,8 +1,13 @@
 //
-//  Reel.swift
-//  MAPD124_Assignment3_SlotMachine
+//  File Name:      Reel.swift
+//  Project Name:   MAPD124-Assignment3
+//  Description:    Reel object used in the slot machine game
+//                  Most of the images used in this project are downloaded and credited from www.freepik.com
 //
-//  Created by Shelalaine Chan on 2017-03-25.
+//  Created by:     Shelalaine Chan
+//  Student ID:     300924281
+//  Change History: 2017-03-25, Created
+//
 //  Copyright © 2017 ShelalaineChan. All rights reserved.
 //
 
